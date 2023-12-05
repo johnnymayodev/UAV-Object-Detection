@@ -10,10 +10,12 @@ import libraries.common as cv
 
 
 def main(epochs=50, batch_size=16, learning_rate=0.001, optimizer="auto", device="cpu"):
+    
     # changing ultralytics settings. this will fix errors for not being able to find the data and prevent tensorboard and wandb from running.
     settings.reset()
-    settings.update({"tensorboard": False})
-    settings.update({"wandb": False})
+    settings.update({"tensorboard": False}) # unnecessary for this project
+    settings.update({"wandb": False}) # unnecessary for this project
+    settings.update({"datasets_dir": cv.HOME + "/datasets/"}) # this is a workaround for a bug in ultralytics (i think). if after running multiple projects with ultralytics, the settings file doesn't update the dataset directory. this forces it to update.
 
     print("\ncreating model...")
     model = YOLO("yolov8n.yaml")  # get a YOLOv8 model from ultralytics
@@ -24,7 +26,7 @@ def main(epochs=50, batch_size=16, learning_rate=0.001, optimizer="auto", device
     )  # load the model from the model directory
 
     if os.path.exists('runs/'):
-        selection = input("WARNING: this will delete all previous training data. would you like to continue? (y/n)\n")
+        selection = input("\nWARNING: this will delete all previous training data. would you like to continue? (y/n)\n")
         if selection == "y":
             shutil.rmtree('runs/')
         else:
@@ -51,10 +53,10 @@ def main(epochs=50, batch_size=16, learning_rate=0.001, optimizer="auto", device
     print("\nsaving model...")
 
     if not os.path.exists("runs/"):
-        raise FileNotFoundError("ERROR: 'runs/' directory not found. Please try again.")
+        raise FileNotFoundError("\nERROR: 'runs/' directory not found. Please try again.")
 
     if os.path.exists(cv.MODEL_DIR + "fresh_model.pt"):
-        selection = input("WARNING: this will delete all previous training data. would you like to continue? (y/n)\n")
+        selection = input("\nWARNING: this will delete all previous training data. would you like to continue? (y/n)\n")
         if selection == "y":
             os.remove(cv.MODEL_DIR + "fresh_model.pt")
             shutil.copy2('runs/detect/train/weights/best.pt', cv.MODEL_DIR + 'fresh_model.pt')
@@ -67,7 +69,7 @@ def main(epochs=50, batch_size=16, learning_rate=0.001, optimizer="auto", device
 
     print("\nmodel saved successfully.")
 
-    shutil.rmtree("runs/")
+    shutil.rmtree("runs/") # runs is a directory that ultralytics creates to store training data. if it is not deleted after each training session, saving the model will be more complex and will take up more space. (this can be changed in an update)
 
 
 if __name__ == "__main__":
