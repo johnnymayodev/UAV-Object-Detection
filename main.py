@@ -76,17 +76,7 @@ try:
         elif selection == "4":
             print("exiting...")
             exit()
-
-
+            
 except Exception as e:
-    if e == "ValueError":
-        print("Invalid input. Please try again.")
-        exit()
-
-    if e == "KeyboardInterrupt" or e == "EOFError":
-        print("\nExiting...")
-        exit()
-
-    print("An error has occurred. Please try again.\n\n")
-    print(e)
+    print(f"an error occurred: {e}")
     exit()
