@@ -1,0 +1,6 @@
+train: ../../../Drone Dataset/data/train/images
+val: ../../../Drone Dataset/data/valid/images
+test: ../../../Drone Dataset/data/test/images
+
+nc: 1
+names: ['drone']
