@@ -17,10 +17,10 @@ def main(epochs=50, batch_size=16, learning_rate=0.001, optimizer="auto", device
 
     print("\ncreating model...")
     model = YOLO("yolov8n.yaml")  # get a YOLOv8 model from ultralytics
-    model = YOLO(cv.MODEL_DIR + "yolov8n.pt")  # saves the model to the model directory
-    os.rename(cv.MODEL_DIR + "yolov8n.pt", cv.MODEL_DIR + "template_model.pt")
+    model = YOLO(cv.MODELS_DIR + "yolov8n.pt")  # saves the model to the model directory
+    os.rename(cv.MODELS_DIR + "yolov8n.pt", cv.MODELS_DIR + "template_model.pt")
     model = YOLO(
-        cv.MODEL_DIR + "template_model.pt"
+        cv.MODELS_DIR + "template_model.pt"
     )  # load the model from the model directory
 
     if os.path.exists('runs/'):
@@ -53,17 +53,17 @@ def main(epochs=50, batch_size=16, learning_rate=0.001, optimizer="auto", device
     if not os.path.exists("runs/"):
         raise FileNotFoundError("\nERROR: 'runs/' directory not found. Please try again.")
 
-    if os.path.exists(cv.MODEL_DIR + "fresh_model.pt"):
+    if os.path.exists(cv.MODELS_DIR + "fresh_model.pt"):
         selection = input("\nWARNING: this will delete all previous training data. would you like to continue? (y/n)\n")
         if selection == "y":
-            os.remove(cv.MODEL_DIR + "fresh_model.pt")
-            shutil.copy2('runs/detect/train/weights/best.pt', cv.MODEL_DIR + 'fresh_model.pt')
+            os.remove(cv.MODELS_DIR + "fresh_model.pt")
+            shutil.copy2('runs/detect/train/weights/best.pt', cv.MODELS_DIR + 'fresh_model.pt')
         else:
             print("exiting...")
             exit()
 
     else:
-        shutil.copy2('runs/detect/train/weights/best.pt', cv.MODEL_DIR + 'fresh_model.pt')
+        shutil.copy2('runs/detect/train/weights/best.pt', cv.MODELS_DIR + 'fresh_model.pt')
 
     print("\nmodel saved successfully.")
 
