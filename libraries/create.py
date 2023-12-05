@@ -32,7 +32,7 @@ def main(epochs=50, batch_size=16, learning_rate=0.001, optimizer="auto", device
             exit()
 
     print(
-        f"\nrunning initial training with parameters:\n"
+        "\nrunning initial training with parameters:\n"
         "epochs: {epochs}\n"
         "batch size: {batch_size}\n"
         "learning rate: {learning_rate}\n"
