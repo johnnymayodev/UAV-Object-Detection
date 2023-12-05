@@ -1,8 +1,6 @@
 import os
 import shutil
 
-import torch
-
 from ultralytics import YOLO
 from ultralytics import settings
 
