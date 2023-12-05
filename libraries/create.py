@@ -71,6 +71,8 @@ def main(epochs=50, batch_size=16, learning_rate=0.001, optimizer="auto", device
 
     shutil.rmtree("runs/") # runs is a directory that ultralytics creates to store training data. if it is not deleted after each training session, saving the model will be more complex and will take up more space. (this can be changed in an update)
 
+    if os.path.exists("yolov8n.pt"):
+        os.remove("yolov8n.pt")
 
 if __name__ == "__main__":
     print(
